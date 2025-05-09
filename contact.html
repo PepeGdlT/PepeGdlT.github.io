@@ -7,6 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json">
+
 </head>
 <body class="bg-gray-100 text-gray-800">
   <nav class="bg-white shadow-md fixed w-full z-10">
@@ -22,21 +24,8 @@
 
   <section class="pt-32 pb-16 container mx-auto px-6" data-aos="fade-left">
     <h2 class="text-3xl font-bold text-center">Contacto</h2>
-    <form action="mailto:tuemail@ejemplo.com" method="POST" class="mt-8 max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-      <div class="mb-4">
-        <label class="block text-gray-700">Nombre</label>
-        <input type="text" name="name" class="w-full mt-2 p-2 border rounded" required />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700">Email</label>
-        <input type="email" name="email" class="w-full mt-2 p-2 border rounded" required />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700">Mensaje</label>
-        <textarea name="message" rows="4" class="w-full mt-2 p-2 border rounded" required></textarea>
-      </div>
-      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Enviar</button>
-    </form>
+    <form action="https://formspree.io/f/tu_id" method="POST" class="mt-8 max-w-xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+
   </section>
 
   <footer class="bg-white py-6 shadow-inner">

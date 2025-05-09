@@ -7,6 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json">
+
 </head>
 <body class="bg-gray-100 text-gray-800">
   <nav class="bg-white shadow-md fixed w-full z-10">
@@ -20,21 +22,56 @@
     </div>
   </nav>
 
-  <section class="pt-32 pb-16 container mx-auto px-6" data-aos="fade-up">
-    <h2 class="text-3xl font-bold text-center">Mis Proyectos</h2>
-    <div class="mt-8 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Proyecto Card -->
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in">
-        <img src="img/project1.jpg" alt="Proyecto 1" class="w-full h-48 object-cover" />
-        <div class="p-6">
-          <h3 class="text-xl font-semibold">Proyecto 1</h3>
-          <p class="mt-2 text-gray-600">Descripción breve del proyecto 1.</p>
-          <a href="#" class="mt-4 inline-block text-green-500 hover:underline">Ver más</a>
+<section class="pt-32 pb-16 container mx-auto px-6" data-aos="fade-up">
+  <h2 class="text-3xl font-bold text-center">Mis Proyectos</h2>
+  <div class="mt-8 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
+    <!-- Proyecto 1: PDS-2025 -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in">
+      <img src="img/pds2025.jpg" alt="PDS-2025" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold">PDS-2025</h3>
+        <p class="mt-2 text-gray-600">Proyecto académico enfocado en el desarrollo de soluciones de software utilizando Java y documentación técnica.</p>
+        <div class="mt-4 flex space-x-4">
+          <a href="https://github.com/PepeGdlT/PDS-2025" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">Ver en GitHub</a>
+          <!-- Si tienes una demo en vivo, descomenta la siguiente línea y actualiza el enlace -->
+          <!-- <a href="https://demo-pds2025.com" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Ver Demo</a> -->
         </div>
       </div>
-      <!-- Repetir tarjetas según necesidad -->
     </div>
-  </section>
+
+    <!-- Proyecto 2: DSINT -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in">
+      <img src="img/dsint.jpg" alt="DSINT" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold">DSINT</h3>
+        <p class="mt-2 text-gray-600">Proyecto desarrollado en Java, centrado en la implementación de estructuras de datos y algoritmos.</p>
+        <div class="mt-4 flex space-x-4">
+          <a href="https://github.com/PepeGdlT/DSINT" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">Ver en GitHub</a>
+          <!-- Si tienes una demo en vivo, descomenta la siguiente línea y actualiza el enlace -->
+          <!-- <a href="https://demo-dsint.com" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Ver Demo</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyecto 3: ProyectoComp -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in">
+      <img src="img/proyectocomp.jpg" alt="ProyectoComp" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold">ProyectoComp</h3>
+        <p class="mt-2 text-gray-600">Proyecto en lenguaje C, enfocado en la construcción de compiladores y análisis léxico/sintáctico.</p>
+        <div class="mt-4 flex space-x-4">
+          <a href="https://github.com/PepeGdlT/ProyectoComp" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">Ver en GitHub</a>
+          <!-- Si tienes una demo en vivo, descomenta la siguiente línea y actualiza el enlace -->
+          <!-- <a href="https://demo-proyectocomp.com" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Ver Demo</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Puedes añadir más proyectos siguiendo el mismo formato -->
+
+  </div>
+</section>
 
   <footer class="bg-white py-6 shadow-inner">
     <div class="container mx-auto px-6 text-center">

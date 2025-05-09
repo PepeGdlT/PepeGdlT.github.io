@@ -5,27 +5,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PepeGdlT Portfolio</title>
-  <!-- Tailwind CSS CDN -->
+  <meta name="description" content="Portafolio de PepeGdlT, desarrollador web y frontend enthusiast.">
+  <meta name="keywords" content="Desarrollador web, Frontend, HTML, CSS, JavaScript, Portafolio">
+  <meta name="author" content="PepeGdlT">
+
+
+  <!-- Tailwind CSS CDN + dark mode -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  
   <!-- AOS Animation CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css" />
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-65HKD88WJN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="manifest" href="manifest.json">
 
-  gtag('config', 'G-65HKD88WJN');
-</script>
-
-
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-65HKD88WJN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-65HKD88WJN');
+  </script>
 </head>
+
 <body class="bg-gray-100 text-gray-800 font-sans">
   <!-- Navbar -->
   <nav class="bg-white shadow-md fixed w-full z-10">
@@ -38,6 +51,11 @@
       </div>
     </div>
   </nav>
+
+  <button id="darkModeToggle" class="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+    <i class="fas fa-moon dark:hidden"></i>
+    <i class="fas fa-sun hidden dark:inline"></i>
+  </button>
 
   <!-- Hero Section -->
   <section id="hero" class="h-screen flex items-center justify-center" data-aos="fade-up">
@@ -60,6 +78,14 @@
       </div>
     </div>
   </section>
+  <div class="mt-6 flex space-x-4 text-3xl text-green-500">
+  <i class="fab fa-html5"></i>
+  <i class="fab fa-css3-alt"></i>
+  <i class="fab fa-js"></i>
+  <i class="fab fa-react"></i>
+  <i class="fab fa-git-alt"></i>
+  </div>
+
 
   <!-- Footer -->
   <footer class="bg-white py-6 mt-20 shadow-inner">
