@@ -1,33 +1,73 @@
+<!-- File: index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Bienvenido a pepegdlt.tech</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        p {
-            font-size: 18px;
-        }
-        footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PepeGdlT Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-    <h1>¡Hola, soy Pepe! 🚀</h1>
-    <p>Gracias por visitar <strong>pepegdlt.tech</strong></p>
-    <footer>
-        &copy; 2025 PepeGdlT. Todos los derechos reservados.
-    </footer>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">PepeGdlT</a>
+      <div class="space-x-4">
+        <a href="index.html#about" class="hover:text-green-500">About</a>
+        <a href="projects.html" class="hover:text-green-500">Projects</a>
+        <a href="contact.html" class="hover:text-green-500">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="h-screen flex items-center justify-center" data-aos="fade-up">
+    <div class="text-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold">¡Hola, soy Pepe!</h1>
+      <p class="mt-4 text-xl text-gray-600">Desarrollador Web | Frontend Enthusiast</p>
+      <a href="projects.html" class="mt-6 inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">Ver Proyectos</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 container mx-auto px-6" data-aos="fade-right">
+    <div class="md:flex md:items-center">
+      <div class="md:w-1/2">
+        <h2 class="text-3xl font-bold">Sobre Mí</h2>
+        <p class="mt-4 text-gray-600">Soy estudiante y desarrollador web con pasión por crear experiencias interactivas y responsivas. Me encanta aprender nuevas tecnologías y aplicar buenas prácticas en cada proyecto.</p>
+      </div>
+      <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+        <img src="img/avatar.jpg" alt="Avatar" class="w-48 h-48 rounded-full object-cover shadow-lg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white py-6 mt-20 shadow-inner">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 PepeGdlT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000 });</script>
+  <script src="js/main.js"></script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
