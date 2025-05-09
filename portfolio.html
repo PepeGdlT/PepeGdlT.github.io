@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PepeGdlT Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <nav class="bg-white shadow-md fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">PepeGdlT</a>
+      <div class="space-x-4">
+        <a href="#about" class="hover:text-green-500">About</a>
+        <a href="#projects" class="hover:text-green-500">Projects</a>
+        <a href="#contact" class="hover:text-green-500">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero" class="h-screen flex items-center justify-center" data-aos="fade-up">
+    <div class="text-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold">¡Hola, soy Pepe!</h1>
+      <p class="mt-4 text-xl text-gray-600">Desarrollador Web | Frontend Enthusiast</p>
+    </div>
+  </section>
+
+  <section id="about" class="py-20 container mx-auto px-6" data-aos="fade-right">
+    <h2 class="text-3xl font-bold">Sobre Mí</h2>
+    <p class="mt-4 text-gray-600">Soy estudiante y desarrollador web apasionado por crear experiencias interactivas y responsivas.</p>
+    <div class="mt-6 flex space-x-4 text-3xl text-green-500">
+      <i class="fab fa-html5"></i>
+      <i class="fab fa-css3-alt"></i>
+      <i class="fab fa-js"></i>
+      <i class="fab fa-react"></i>
+      <i class="fab fa-git-alt"></i>
+    </div>
+  </section>
+
+  <section id="projects" class="py-20 container mx-auto px-6" data-aos="fade-up">
+    <h2 class="text-3xl font-bold text-center">Mis Proyectos</h2>
+    <div class="mt-8 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Proyecto 1 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="img/pds2025.jpg" alt="PDS-2025" class="w-full h-48 object-cover" />
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">PDS-2025</h3>
+          <p class="mt-2 text-gray-600">Soluciones en Java y documentación técnica.</p>
+          <a href="https://github.com/PepeGdlT/PDS-2025" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">GitHub</a>
+        </div>
+      </div>
+      <!-- Proyecto 2 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="img/projects/Perseo.jpeg" alt="DSINT" class="w-full h-48 object-cover" />
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">DSINT</h3>
+          <p class="mt-2 text-gray-600">Estructuras de datos y algoritmos en Java.</p>
+          <a href="https://github.com/PepeGdlT/DSINT" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">GitHub</a>
+        </div>
+      </div>
+      <!-- Proyecto 3 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="img/proyectocomp.jpg" alt="ProyectoComp" class="w-full h-48 object-cover" />
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">ProyectoComp</h3>
+          <p class="mt-2 text-gray-600">Compiladores y análisis léxico/sintáctico en C.</p>
+          <a href="https://github.com/PepeGdlT/ProyectoComp" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 container mx-auto px-6" data-aos="fade-left">
+    <h2 class="text-3xl font-bold text-center">Contacto</h2>
+    <p class="mt-4 text-center text-gray-600">Puedes contactarme por redes o email.</p>
+  </section>
+
+  <footer class="bg-white py-6 shadow-inner">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 PepeGdlT. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000 });</script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

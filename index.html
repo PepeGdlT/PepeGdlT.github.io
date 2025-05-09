@@ -1,111 +1,53 @@
-<!-- File: index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PepeGdlT Portfolio</title>
-  <meta name="description" content="Portafolio de PepeGdlT, desarrollador web y frontend enthusiast.">
-  <meta name="keywords" content="Desarrollador web, Frontend, HTML, CSS, JavaScript, Portafolio">
-  <meta name="author" content="PepeGdlT">
-
-
-  <!-- Tailwind CSS CDN + dark mode -->
+  <title>Loading Infinite</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
+  <style>
+    body {
+      transition: background-color 0.5s, color 0.5s;
+      font-family: 'Fira Code', monospace;
     }
-  </script>
-  
-  <!-- AOS Animation CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css" />
-
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-65HKD88WJN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-65HKD88WJN');
-  </script>
+    .dot {
+      animation: blink 1.5s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+    .mode-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .mode-toggle:hover {
+      transform: rotate(30deg) scale(1.2);
+    }
+  </style>
 </head>
+<body class="bg-black text-white flex flex-col items-center justify-center min-h-screen">
+  <div class="mode-toggle text-xl" id="toggle">🌙</div>
+  <h1 class="text-5xl font-bold">
+    Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+  </h1>
 
-<body class="bg-gray-100 text-gray-800 font-sans">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md fixed w-full z-10">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-xl font-bold">PepeGdlT</a>
-      <div class="space-x-4">
-        <a href="index.html#about" class="hover:text-green-500">About</a>
-        <a href="projects.html" class="hover:text-green-500">Projects</a>
-        <a href="contact.html" class="hover:text-green-500">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <button id="darkModeToggle" class="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-    <i class="fas fa-moon dark:hidden"></i>
-    <i class="fas fa-sun hidden dark:inline"></i>
-  </button>
-
-  <!-- Hero Section -->
-  <section id="hero" class="h-screen flex items-center justify-center" data-aos="fade-up">
-    <div class="text-center">
-      <h1 class="text-5xl md:text-6xl font-extrabold">¡Hola, soy Pepe!</h1>
-      <p class="mt-4 text-xl text-gray-600">Desarrollador Web | Frontend Enthusiast</p>
-      <a href="projects.html" class="mt-6 inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">Ver Proyectos</a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 container mx-auto px-6" data-aos="fade-right">
-    <div class="md:flex md:items-center">
-      <div class="md:w-1/2">
-        <h2 class="text-3xl font-bold">Sobre Mí</h2>
-        <p class="mt-4 text-gray-600">Soy estudiante y desarrollador web con pasión por crear experiencias interactivas y responsivas. Me encanta aprender nuevas tecnologías y aplicar buenas prácticas en cada proyecto.</p>
-      </div>
-      <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
-        <img src="img/avatar.jpg" alt="Avatar" class="w-48 h-48 rounded-full object-cover shadow-lg" />
-      </div>
-    </div>
-  </section>
-  <div class="mt-6 flex space-x-4 text-3xl text-green-500">
-  <i class="fab fa-html5"></i>
-  <i class="fab fa-css3-alt"></i>
-  <i class="fab fa-js"></i>
-  <i class="fab fa-react"></i>
-  <i class="fab fa-git-alt"></i>
-  </div>
-
-
-  <!-- Footer -->
-  <footer class="bg-white py-6 mt-20 shadow-inner">
-    <div class="container mx-auto px-6 text-center">
-      <p>&copy; 2025 PepeGdlT. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({ duration: 1000 });</script>
-  <script src="js/main.js"></script>
-
+  <script>
+    const toggle = document.getElementById('toggle');
+    let darkMode = true;
+    toggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      document.body.classList.toggle('bg-black', darkMode);
+      document.body.classList.toggle('bg-white', !darkMode);
+      document.body.classList.toggle('text-white', darkMode);
+      document.body.classList.toggle('text-black', !darkMode);
+      toggle.textContent = darkMode ? '🌙' : '☀️';
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-

@@ -1,27 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-        link.addEventListener('mouseover', () => link.style.color = '#4CAF50');
-        link.addEventListener('mouseout', () => link.style.color = '');
+document.addEventListener("DOMContentLoaded", function () {
+  // Verifica que estamos en portfolio.html
+  if (window.location.pathname.includes('portfolio.html')) {
+    console.log("Portfolio.js cargado correctamente.");
+
+    // Inicializa AOS (Animations on Scroll)
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    }
+
+    // Ejemplo: animación de scroll suave para navegación interna
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
     });
-});
 
-document.getElementById('darkModeToggle').addEventListener('click', () => {
-  document.documentElement.classList.toggle('dark');
-});
-
-
-window.addEventListener('scroll', () => {
-  const navbar = document.querySelector('nav');
-  if (window.scrollY > 50) {
-    navbar.classList.add('shadow-lg');
+    // Puedes agregar aquí más scripts para portfolio.html
   } else {
-    navbar.classList.remove('shadow-lg');
+    console.log("Main.js detectó que no está en portfolio.html → no se ejecuta nada.");
   }
 });
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(() => console.log('Service Worker registrado correctamente'))
-    .catch(error => console.log('Error al registrar el Service Worker:', error));
-}
