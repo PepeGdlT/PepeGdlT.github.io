@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encuesta Rocío vs Carmen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <style>
+    body {
+      background-image: url('img/encuesta/rocio.png'), url('img/encuesta/carmen.jpg');
+      background-size: 50% 100%;
+      background-position: left, right;
+      background-repeat: no-repeat;
+    }
+    .bar {
+      transition: width 0.5s ease-in-out;
+    }
+    .animate-pulse-vote {
+      animation: pulse 0.6s ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+  @media (max-width: 768px) {
+    body {
+      background-image: url('img/encuesta/rocio.png');
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  </style>
+</head>
+<body class="text-white min-h-screen flex flex-col items-center justify-center bg-black bg-opacity-70 backdrop-blur">
+
+  <div class="absolute top-6 left-6 text-2xl font-bold">
+    <a href="/" class="hover:text-green-400">← Volver</a>
+  </div>
+
+  <div class="w-full max-w-2xl px-6 bg-black bg-opacity-60 p-10 rounded-xl shadow-xl">
+    <h1 class="text-4xl md:text-5xl font-bold text-center mb-8">¿Quién prefieres?</h1>
+
+    <div class="grid gap-6">
+      <button id="btn-rocio" onclick="votar('rocio')" class="w-full bg-pink-600 hover:bg-pink-700 py-4 rounded-2xl text-xl font-semibold transition">Rocío</button>
+      <button id="btn-carmen" onclick="votar('carmen')" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl text-xl font-semibold transition">Carmen</button>
+    </div>
+
+    <div class="mt-10 space-y-6">
+      <div>
+        <p class="text-lg font-medium mb-1">Rocío: <span id="rocioPorcentaje">0%</span></p>
+        <div class="w-full bg-gray-700 rounded-full h-6 overflow-hidden">
+          <div id="rocioBarra" class="bg-pink-500 h-full bar" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-lg font-medium mb-1">Carmen: <span id="carmenPorcentaje">0%</span></p>
+        <div class="w-full bg-gray-700 rounded-full h-6 overflow-hidden">
+          <div id="carmenBarra" class="bg-blue-500 h-full bar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuración Firebase (reemplaza con tus datos)
+    const firebaseConfig = {
+        apiKey: "AIzaSyA1SaLNQyvbn8-OugS42J6PWRLmNhOs9Gw",
+        authDomain: "encuesta-33456.firebaseapp.com",
+        databaseURL: "https://encuesta-33456-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "encuesta-33456",
+        storageBucket: "encuesta-33456.appspot.com", 
+        messagingSenderId: "448698925229",
+        appId: "1:448698925229:web:c8bb2565076a7279150624",
+        measurementId: "G-9FD0D92SVV"
+    };
+
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let votos = { rocio: 0, carmen: 0 };
+
+    function votar(persona) {
+    if (localStorage.getItem("yaVoto")) {
+        alert("¡Ya has votado!");
+        return;
+    }
+
+    const btn = document.getElementById(`btn-${persona}`);
+    btn.classList.add('animate-pulse-vote');
+    setTimeout(() => btn.classList.remove('animate-pulse-vote'), 600);
+
+    const ref = db.ref(`votos/${persona}`);
+    ref.transaction(actual => (actual || 0) + 1);
+    
+    localStorage.setItem("yaVoto", persona); // guarda quién votó
+    }
+
+
+    function actualizarPorcentajes() {
+      const total = votos.rocio + votos.carmen;
+      const rocioPorcentaje = total === 0 ? 0 : Math.round((votos.rocio / total) * 100);
+      const carmenPorcentaje = total === 0 ? 0 : 100 - rocioPorcentaje;
+
+      document.getElementById('rocioPorcentaje').textContent = `${rocioPorcentaje}%`;
+      document.getElementById('carmenPorcentaje').textContent = `${carmenPorcentaje}%`;
+
+      document.getElementById('rocioBarra').style.width = `${rocioPorcentaje}%`;
+      document.getElementById('carmenBarra').style.width = `${carmenPorcentaje}%`;
+    }
+
+    function escucharVotos() {
+      db.ref('votos').on('value', snapshot => {
+        const data = snapshot.val() || {};
+        votos.rocio = data.rocio || 0;
+        votos.carmen = data.carmen || 0;
+        actualizarPorcentajes();
+      });
+    }
+
+    escucharVotos();
+  </script>
+
+</body>
+</html>
