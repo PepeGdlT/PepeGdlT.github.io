@@ -27,20 +27,28 @@
       100% { transform: scale(1); }
     }
     
-    @media (max-width: 768px) {
-      body {
-        background-image: none;
-        background-color: #000;
-      }
+@media (max-width: 768px) {
+  body {
+    background: #000; /* Fondo liso para que no interfiera */
+  }
 
-      .mobile-bg {
-        background-image: url('img/encuesta/rocio.png');
-        background-size: cover;
-        background-position: center;
-        height: 200px;
-        border-radius: 1rem;
-        margin-bottom: 1.5rem;
-      }
+  .bg-dual {
+    display: none;
+  }
+
+  .imagenes-movil {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .imagenes-movil img {
+    width: 100%;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    object-fit: cover;
+  }
+}
+
     }
 
   
