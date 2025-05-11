@@ -3,94 +3,302 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>الخطة الكبرى</title>
+  <title>مخطط السرية</title>
   <style>
     body {
-      background-color: black;
-      color: #ff0000;
-      font-family: 'Arial', sans-serif;
-      font-size: 14px;
-      line-height: 1.4;
-      padding: 0;
-      margin: 0;
+      background: #010101;
+      color: #cc0000;
       overflow: hidden;
+      cursor: crosshair;
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
     }
 
-    .text {
+    .board {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70vw;
+      height: 85vh;
+      background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 100%);
+      border: 3px solid #900;
+    }
+
+    .central-image {
       position: absolute;
-      white-space: normal;
-      max-width: 320px;
+      top: 50%;
+      left: 50%;
+      width: 250px;
+      height: 250px;
+      transform: translate(-50%, -50%);
+      border: 3px solid #a00;
+      box-shadow: 0 0 50px #d00;
+      z-index: 10;
+    }
+
+    .surrounding-image {
+      max-width: 250px;
+      height: auto;
+      border: 2px solid #900;
+      box-shadow: 0 0 20px #900;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .arabic-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 0.05) 0px 3px,
+        transparent 3px 30px
+      );
+      z-index: 15;
+    }
+
+    svg.connection-lines {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
       z-index: 1;
     }
 
-    .img {
-      position: absolute;
-      border: 4px solid yellow;
-      box-shadow: 0 0 15px red;
-      width: 300px;
-      z-index: 5;
+    #countdown {
+      font-size: 20px;
+      color: #00ff00;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border: 2px solid #0f0;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
     }
   </style>
 </head>
 <body>
 
-<script>
-  const arabicSnippets = [
-    "هذا نص عربي طويل جداً لا يحتوي على أي معنى حقيقي بل يستخدم لملء المساحات في هذه الصفحة السوداء المزدحمة بالمعلومات والرموز والأسرار.",
-    "بسم الله الرحمن الرحيم، هذه مجرد كلمات بلا هدف لكنها ضرورية لتكملة المخطط الشامل لخطة SERGIO.",
-    "في مكان غير معروف في 2004 02 21، شوهد الهدف يتحرك بسرعة بين الظلال.",
-    "الله أكبر، السلام عليكم ورحمة الله وبركاته، هذه المعلومات سرية للغاية ويجب ألا تقع في الأيدي الخطأ.",
-    "نحن نراقب كل خطوة، نعرف كل سر، ونجمع كل تفاصيل الحياة اليومية لـMAIQUEZ في 2004 02 21.",
-    "إنه تحت المراقبة الكاملة. لا يمكنه الفرار. كل زاوية تم توثيقها وكل لحظة محسوبة.",
-    "معلومات مشفرة: المفتاح في الصورة ٣، ابحث عن اللون الأزرق خلف الستارة.",
-    "الخريطة تؤدي إلى غرفة الأسرار، لا تثق بأحد.",
-    "منزل العائلة يحتوي على أدلة كثيرة. نوصي بالتحقيق في الجدار الجنوبي.",
-    "الساعة الثالثة فجراً. الضوء ظهر من النافذة. هذا هو التوقيت المناسب للتحرك.",
-    "تحذير: لا تكشف هذا الملف أمام العامة. هناك من يراقب الآن.",
-    "تمت مراقبة الهاتف في يوم-2004 02 21، جميع المحادثات مسجلة ومشفرة لدينا.",
-    "النقطة التالية في العملية: 2004 02 21. الهدف سيكون وحيداً.",
-    "الخط الأحمر يربط بين منزل الأم، المدرسة، وشقة LUCIA.",
-    "هذا النص متصل برمز غامض تم العثور عليه في خزانة ملابس عمرها عشرون عاماً.",
-    "قيل لنا أن الباب المؤدي إلى الغرفة الحمراء لا يفتح إلا بكلمة مرور مشفرة.",
-    "كل الأدلة تشير إلى وجود تواطؤ داخلي بين عناصر داخلية وخارجية.",
-    "البحث ما زال مستمراً، وهناك ملفات لم تفتح بعد.",
-    "خطة SERGIO تعتمد على المرحلة الثالثة، التي لم تُكشف بعد لأي أحد.",
-    "تم رصد حركة مشبوهة في murcia بتاريخ غير معروف، نُسبت إلى عنصر مجهول."
-  ];
+<div class="board">
+  <div class="arabic-overlay"></div>
+  <img src="img/sergio/moha.jpg" class="central-image" id="moha">
+  <svg id="connections" class="connection-lines"></svg>
+</div>
 
-  for (let i = 0; i < 1200; i++) {
-    const div = document.createElement('div');
-    div.className = 'text';
-    div.style.top = Math.random() * window.innerHeight * 4 + 'px';
-    div.style.left = Math.random() * window.innerWidth * 3 + 'px';
-    div.style.color = ['#ff0000', '#aa0000', '#ff3333'][Math.floor(Math.random() * 3)];
-    div.textContent = arabicSnippets[Math.floor(Math.random() * arabicSnippets.length)];
-    document.body.appendChild(div);
+<div id="countdown"></div>
+
+<!-- Cuenta atrás -->
+<script>
+  const countdown = document.getElementById("countdown");
+  const targetDate = new Date("2025-05-29T00:00:00").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      countdown.innerHTML = "¡La fecha ha llegado!";
+      return;
+    }
+
+    const dias = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `29/05/2025: ${dias}d ${horas}h ${minutos}m ${segundos}s`;
+  }, 1000);
+</script>
+
+<!-- Generación de imágenes y líneas al cargar -->
+<script>
+  window.addEventListener('load', () => {
+    const images = [
+      { src: 'img/sergio/casasergio.jpg', angle: 0, distance: 300 },
+      { src: 'img/sergio/laura.jpg', angle: 60, distance: 320 },
+      { src: 'img/sergio/lucia.jpg', angle: 120, distance: 300 },
+      { src: 'img/sergio/casalaura.jpg', angle: 180, distance: 320 },
+      { src: 'img/sergio/murcia.jpg', angle: 240, distance: 300 },
+      { src: 'img/sergio/fium.jpg', angle: 300, distance: 320 }
+    ];
+
+    const svg = document.getElementById('connections');
+    const board = document.querySelector('.board');
+    const mohaImg = document.getElementById('moha');
+
+    // Obtener dimensiones del tablero
+    const boardRect = board.getBoundingClientRect();
+    const centerX = boardRect.width / 2;
+    const centerY = boardRect.height / 2;
+
+    // Añadir coordenadas centrales a la imagen de Moha
+    mohaImg.style.left = centerX + 'px';
+    mohaImg.style.top = centerY + 'px';
+
+    images.forEach(img => {
+      const rad = (img.angle * Math.PI) / 180;
+      
+      // Calcular posición relativa al tablero
+      const x = centerX + Math.cos(rad) * img.distance;
+      const y = centerY + Math.sin(rad) * img.distance;
+
+      // Crear imagen periférica
+      const imgElement = document.createElement('img');
+      imgElement.src = img.src;
+      imgElement.className = 'surrounding-image';
+      imgElement.style.left = x + 'px';
+      imgElement.style.top = y + 'px';
+      board.appendChild(imgElement); // Añadir al tablero, no al body
+
+      // Crear línea de conexión
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', centerX);
+      line.setAttribute('y1', centerY);
+      line.setAttribute('x2', x);
+      line.setAttribute('y2', y);
+      line.setAttribute('stroke', '#ff0000');
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '5,3');
+      line.style.filter = 'drop-shadow(0 0 5px #f00)'; // Efecto de brillo
+      svg.appendChild(line);
+    });
+    
+
+    // Si ya estaba cargada (por cache), disparamos manualmente el evento
+    if (mohaImg.complete) {
+      mohaImg.dispatchEvent(new Event('load'));
+    }
+
+
+    // Generar texto árabe disperso
+    const arabicTexts = [ "هذا نص عربي طويل جداً لا يحتوي على أي معنى حقيقي بل يستخدم لملء المساحات في هذه الصفحة السوداء المزدحمة بالمعلومات والرموز والأسرار.", "بسم الله الرحمن الرحيم، هذه مجرد كلمات بلا هدف لكنها ضرورية لتكملة المخطط الشامل لخطة SERGIO.", "في مكان غير معروف في 2004 02 21، شوهد الهدف يتحرك بسرعة بين الظلال.", "الله أكبر، السلام عليكم ورحمة الله وبركاته، هذه المعلومات سرية للغاية ويجب ألا تقع في الأيدي الخطأ.", "نحن نراقب كل خطوة، نعرف كل سر، ونجمع كل تفاصيل الحياة اليومية لـMAIQUEZ في 2004 02 21.", "إنه تحت المراقبة الكاملة. لا يمكنه الفرار. كل زاوية تم توثيقها وكل لحظة محسوبة.", "معلومات مشفرة: المفتاح في الصورة ٣، ابحث عن اللون الأزرق خلف الستارة.", "الخريطة تؤدي إلى غرفة الأسرار، لا تثق بأحد.", "منزل العائلة يحتوي على أدلة كثيرة. نوصي بالتحقيق في الجدار الجنوبي.", "الساعة الثالثة فجراً. الضوء ظهر من النافذة. هذا هو التوقيت المناسب للتحرك.", "تحذير: لا تكشف هذا الملف أمام العامة. هناك من يراقب الآن.", "تمت مراقبة الهاتف في يوم-2004 02 21، جميع المحادثات مسجلة ومشفرة لدينا.", "النقطة التالية في العملية: 2004 02 21. الهدف سيكون وحيداً.", "الخط الأحمر يربط بين منزل الأم، المدرسة، وشقة LUCIA.", "هذا النص متصل برمز غامض تم العثور عليه في خزانة ملابس عمرها عشرون عاماً.", "قيل لنا أن الباب المؤدي إلى الغرفة الحمراء لا يفتح إلا بكلمة مرور مشفرة.", "كل الأدلة تشير إلى وجود تواطؤ داخلي بين عناصر داخلية وخارجية.", "البحث ما زال مستمراً، وهناك ملفات لم تفتح بعد.", "خطة SERGIO تعتمد على المرحلة الثالثة، التي لم تُكشف بعد لأي أحد.", "تم رصد حركة مشبوهة في murcia بتاريخ غير معروف، نُسبت إلى عنصر مجهول." ];
+
+
+// Para los textos dentro del board, más grandes y con z-index bajo
+for (let i = 0; i < 150; i++) {
+  const text = document.createElement('div');
+  text.textContent = arabicTexts[Math.floor(Math.random() * arabicTexts.length)];
+  text.style.position = 'absolute'; // Posicionarlos absolutamente
+  text.style.left = Math.random() * window.innerWidth + 'px'; // Posición aleatoria en toda la pantalla (no solo dentro del board)
+  text.style.top = Math.random() * window.innerHeight + 'px'; // Posición aleatoria en toda la pantalla
+  text.style.color = `rgba(255, 0, 0, ${Math.random() * 0.3 + 0.1})`;
+  text.style.fontSize = Math.random() * 20 + 10 + 'px'; // Textos más grandes
+  text.style.pointerEvents = 'none';
+  text.style.zIndex = '0'; // Más bajo que las imágenes en el board
+  board.appendChild(text); // Añadir al board
+}
+
+// Para los textos dentro del board, pero más pequeños y con z-index bajo
+for (let i = 0; i < 150; i++) {
+  const text = document.createElement('div');
+  text.textContent = arabicTexts[Math.floor(Math.random() * arabicTexts.length)];
+  text.style.position = 'left'; // Posicionarlos absolutamente
+  text.style.left = Math.random() * (board.clientWidth / 2) + 'px'; // Posición aleatoria en la mitad izquierda del board
+  text.style.top = Math.random() * board.clientHeight + 'px'; // Posición aleatoria en la parte superior/inferior del board
+  text.style.color = `rgba(255, 0, 0, ${Math.random() * 0.3 + 0.1})`;
+  text.style.fontSize = Math.random() * 5 + 10 + 'px'; // Textos más pequeños
+  text.style.pointerEvents = 'none';
+  text.style.zIndex = '0'; // Más bajo que las imágenes
+  document.body.appendChild(text);// Añadir al board
+}
+
+// Para los textos fuera del board (en el body)
+for (let i = 0; i < 150; i++) {
+  const text = document.createElement('div');
+  text.textContent = arabicTexts[Math.floor(Math.random() * arabicTexts.length)];
+  text.style.position = 'absolute'; // Posicionarlos absolutamente
+  text.style.left = Math.random() * window.innerWidth + 'px'; // Posición aleatoria en toda la pantalla (fuera del board)
+  text.style.top = Math.random() * window.innerHeight + 'px'; // Posición aleatoria en toda la pantalla
+  text.style.color = `rgba(255, 0, 0, ${Math.random() * 0.3 + 0.1})`;
+  text.style.fontSize = Math.random() * 5 + 10 + 'px'; // Textos pequeños fuera del board
+  text.style.pointerEvents = 'none';
+  text.style.zIndex = '0'; // Más bajo que las imágenes en el body
+  document.body.appendChild(text); // Añadir al body
+}
+// Función para agregar una imagen en una posición fija
+function addImageAtPosition(src, position) {
+  const img = document.createElement('img');
+  img.src = src; // Fuente de la imagen
+  img.style.position = 'absolute'; // Posicionamiento absoluto
+  
+  // Establecer un tamaño más pequeño para las imágenes
+  img.style.width = '350px';  // Reducir el tamaño de las imágenes
+  img.style.height = '350px'; // Mantener la proporción si es necesario
+  
+  // Dependiendo de la posición, ajustamos las coordenadas
+  if (position === 'top-left') {
+    img.style.left = '20px'; // Esquina superior izquierda
+    img.style.top = '030px'; 
+  } else if (position === 'bottom-right') {
+    img.style.left = window.innerWidth - 280 + 'px'; // Ajustar el tamaño de la imagen
+    img.style.top = window.innerHeight - 380 + 'px'; // Ajustar el tamaño de la imagen
+  } else if (position === 'bottom-left') {
+    img.style.left = window.innerWidth - 1900 + 'px'; // Ajustar el tamaño de la imagen
+    img.style.top = window.innerHeight - 500 + 'px'; // Ajustar el tamaño de la imagen
   }
 
-  const images = [
-    { src: 'img/sergio/casasergio.jpg', top: 300, left: 400 },
-    { src: 'img/sergio/laura.jpg', top: 700, left: 800 },
-    { src: 'img/sergio/lucia.jpg', top: 150, left: 1000 },
-    { src: 'img/sergio/casalaura.jpg', top: 500, left: 1300 },
-    { src: 'img/sergio/murcia.jpg', top: 600, left: 100 },
-    { src: 'img/sergio/fium.jpg', top: 400, left: 700 },
-  ];
+  img.style.pointerEvents = 'none'; // Para que no interfiera con la interacción de otros elementos
+  img.style.zIndex = '0'; // Colocarlo detrás de otros elementos
+  document.body.appendChild(img); // Añadir al body
+}
 
-  images.forEach(img => {
-    const el = document.createElement('img');
-    el.src = img.src;
-    el.className = 'img';
-    el.style.top = img.top + 'px';
-    el.style.left = img.left + 'px';
-    document.body.appendChild(el);
+// Agregar las dos imágenes en posiciones fijas
+addImageAtPosition('img/sergio/luciasergio.jpg', 'top-left'); // Reemplaza con la ruta de tu imagen
+addImageAtPosition('img/sergio/calvo.jpg', 'bottom-right'); // Reemplaza con la ruta de tu imagen
+addImageAtPosition('img/sergio/sergiofusi.jpg', 'bottom-left'); // Reemplaza con la ruta de tu imagen
+
+
+// Crear un div con fondo gris parcialmente visible
+const grayBackground = document.createElement('div');
+grayBackground.style.position = 'absolute';
+grayBackground.style.top = '0';
+grayBackground.style.left = '0';
+grayBackground.style.width = '100%';
+grayBackground.style.height = '100%';
+grayBackground.style.background = 'rgba(128, 128, 128, 0.5)'; // Gris con transparencia
+grayBackground.style.zIndex = '-2'; // Colocarlo detrás de las imágenes
+document.body.appendChild(grayBackground); // Añadir al body
+
+
+
   });
 </script>
 
-<audio autoplay loop>
+<!-- Botón ficticio -->
+<div style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
+  <button onclick="alert('¡فشل إلغاء التنشيط! النظام مهدد')" 
+          style="background: black; color: red; border: 2px solid red; padding: 10px; cursor: pointer;">
+    إلغاء تفعيل العد التنازلي (محاولات متبقية: 3)
+  </button>
+</div>
+
+<!-- Audio de fondo -->
+<audio id="terrorAudio" autoplay loop>
   <source src="audio/hardcore_arab.wav" type="audio/wav">
-  المتصفح لا يدعم تشغيل الصوت.
+  Tu navegador no soporta audio HTML5.
 </audio>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("terrorAudio");
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    }
+  });
+  
+</script>
 
 </body>
 </html>
