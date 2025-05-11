@@ -299,6 +299,18 @@ document.body.appendChild(grayBackground); // Añadir al body
   });
   
 </script>
+<script>
+  // Detección de dispositivos móviles basándonos en el tamaño de la pantalla
+  if (window.innerWidth <= 768) {
+    document.body.innerHTML = '<h1>Acceso restringido desde dispositivos móviles</h1>';
+  }
+</script>
+<script>
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (/mobile/i.test(userAgent)) {
+    document.body.innerHTML = '<h1>Acceso restringido desde dispositivos móviles</h1>';
+  }
+</script>
 
 </body>
 </html>
