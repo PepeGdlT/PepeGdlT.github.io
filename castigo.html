@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Castigo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: black url('img/castigo/celda.jgp.avif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier New', monospace;
+      color: #ccc;
+      overflow: hidden;
+    }
+    #container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(20, 20, 20, 0.8);
+      padding: 20px;
+      border: 1px solid #555;
+      border-radius: 10px;
+      width: 300px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+      z-index: 10;
+    }
+    #title {
+      font-size: 18px;
+      color: #ff4444;
+      margin-bottom: 10px;
+    }
+    #timer {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #startForm {
+      display: flex;
+      gap: 5px;
+    }
+    input[type="number"] {
+      width: 70px;
+      padding: 5px;
+      background: #111;
+      border: 1px solid #444;
+      color: white;
+    }
+    button {
+      background: #222;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #333;
+      border-color: #777;
+    }
+
+    /* Mensajes flotantes */
+    .floating-message {
+    position: absolute;
+    font-size: 24px; /* más grande */
+    color: rgba(255, 80, 80, 0.9); /* más brillante */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* más legible sobre el fondo */
+    animation: fadeInOut 6s ease-in-out forwards; /* más lento */
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+    }
+
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="title">Modo Castigo</div>
+    <div id="timer">00:00</div>
+    <form id="startForm">
+      <input type="number" id="minutesInput" placeholder="Minutos" min="1" max="999" />
+      <button type="submit">Iniciar</button>
+    </form>
+  </div>
+
+  <script>
+    let secondsLeft = 0;
+    let interval = null;
+    let tabActive = true;
+
+    const timerDisplay = document.getElementById('timer');
+    const form = document.getElementById('startForm');
+    const minutesInput = document.getElementById('minutesInput');
+
+    const phrases = [
+      "No puedes mirar a otro lado.",
+      "Esto es por tu bien.",
+      "Cada segundo cuenta.",
+      "¿Ya te arrepentiste?",
+      "Demasiado tarde para escapar.",
+      "Observamos tu disciplina.",
+      "¿Mereces el perdón?",
+      "No hay atajos esta vez.",
+      "Silencio. Mira.",
+      "Esta esquina te pertenece."
+    ];
+
+    function showFloatingMessage() {
+      const msg = document.createElement('div');
+      msg.classList.add('floating-message');
+      msg.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+
+      // Posición aleatoria
+      msg.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+      msg.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+
+      document.body.appendChild(msg);
+
+      setTimeout(() => {
+        msg.remove();
+      }, 4000);
+    }
+
+    function updateTimer() {
+      if (!tabActive || secondsLeft <= 0) return;
+
+      secondsLeft--;
+      let min = Math.floor(secondsLeft / 60);
+      let sec = secondsLeft % 60;
+      timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+
+      if (secondsLeft % 4 === 0) {
+        showFloatingMessage();
+      }
+
+      if (secondsLeft <= 0) {
+        clearInterval(interval);
+        timerDisplay.textContent = "00:00";
+        showFloatingMessage();
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const minutes = parseInt(minutesInput.value);
+      if (isNaN(minutes) || minutes < 1) return;
+      secondsLeft = minutes * 60;
+      updateTimer(); // mostrar inmediatamente
+      interval = setInterval(updateTimer, 1000);
+      form.style.display = 'none';
+    });
+
+    // Detección de pestaña activa/inactiva
+    document.addEventListener('visibilitychange', () => {
+      tabActive = !document.hidden;
+    });
+  </script>
+</body>
+</html>
